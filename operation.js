@@ -8,6 +8,8 @@ let total = document.getElementById("total");
 let count = document.getElementById("count");
 let category = document.getElementById("category");
 let submit = document.getElementById("submit");
+let btnDeleteAll = document.getElementById("deleteAll");
+
 
 // func to get total price.. it work when write on price partion
 function getTotal() {
@@ -30,6 +32,7 @@ if (localStorage.products != null) {
   products = [];
 }
 
+
 // fn to collect info about the product and add it to products list
 submit.onclick = function () {
   let newProduct = {
@@ -51,6 +54,7 @@ submit.onclick = function () {
   showData();
 };
 
+
 // fn to erase character from input field for make them ready to write
 function clearInputFields() {
   title.value = "";
@@ -64,6 +68,11 @@ function clearInputFields() {
 }
 // fn to read all products one by one and add product as a row in table
 function showData() {
+  if (products.length > 0){
+    btnDeleteAll.style.display = 'block';
+  }else {
+    btnDeleteAll.style.display = 'none';
+  }
   let rows = '';
   for (let i = 0; i < products.length; i++) {
     rows += `
@@ -76,11 +85,29 @@ function showData() {
             <td>${products[i].discount}</td>
             <td>${products[i].total}</td>
             <td>${products[i].category}</td>
-            // <td><button id="update">update</button></td>
-            // <td><button id="delett">delete</button></td>
+            <td><button id="update">update</button></td>
+            <td><button onclick = "deleteProduct( ${i} )" id="delett">delete</button></td>
         </tr>`;
   }
   document.getElementById('tbody').innerHTML = rows;
 }
 // call here for disply data all time.. not just when create new product
 showData()
+
+
+// delete a specified product when click on delete button of a product row
+function deleteProduct(index){
+
+    products.splice(index,1);   // 1- delete product from products list depended on its index
+    localStorage.products = JSON.stringify(products);  // 2- update the localStotage after deleteed
+    showData();  // 3- update disply  data
+}
+
+
+// delete all products when click on delete all button
+function deleteAll(){
+    products.splice(0); // delete from start to end
+    localStorage.clear(); 
+    showData();
+}
+

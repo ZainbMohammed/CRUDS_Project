@@ -79,3 +79,7 @@ th{
 th,td{
     padding: 5px;
 }
+#deleteAll{
+    margin: 25px 0;
+    display: none;
+}
