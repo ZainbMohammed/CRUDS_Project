@@ -81,6 +81,6 @@ function showData() {
         </tr>`;
   }
   document.getElementById('tbody').innerHTML = rows;
-  
 }
+// call here for disply data all time.. not just when create new product
 showData()
