@@ -45,8 +45,20 @@ submit.onclick = function () {
     count: count.value,
     category: category.value,
   };
-  // add new product (object) to prosucts list
-  products.push(newProduct);
+  // add new product (object) to prosucts list depended on count number
+  if( newProduct.count >1){
+    for (let i = 0; i < newProduct.count; i++){
+        products.push(newProduct);
+        console.log(`create product ${i}`);
+    }
+  }else{
+    products.push(newProduct);
+    console.log(`create only one product `);
+  }
+//   if(newProduct.count === 1){
+//     console.log('hi');
+//   }
+
   // add & update producs in localStorage
   localStorage.setItem("products", JSON.stringify(products));
   // after added make the field ready to writr for another product
