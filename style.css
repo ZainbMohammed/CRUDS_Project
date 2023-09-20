@@ -61,9 +61,16 @@ button:hover{
     background: rgba(128, 0, 128, 0.459);
     letter-spacing: 1px;
 }
+/* #submit{
+    margin: 25px 0;
+} */
 .btnSearch{
     display: flex;
     justify-content: space-between;
+    
+}
+.outputs{
+    margin-top: 20px;
 }
 .btnSearch button{
     width: 45%;

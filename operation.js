@@ -9,7 +9,8 @@ let count = document.getElementById("count");
 let category = document.getElementById("category");
 let submit = document.getElementById("submit");
 let btnDeleteAll = document.getElementById("deleteAll");
-
+let mode = "create";
+let tmp ;
 
 // func to get total price.. it work when write on price partion
 function getTotal() {
@@ -29,9 +30,8 @@ let products;
 if (localStorage.products != null) {
   products = JSON.parse(localStorage.products);
 } else {
-  products = [];
+  // products = [];
 }
-
 
 // fn to collect info about the product and add it to products list
 submit.onclick = function () {
@@ -45,19 +45,20 @@ submit.onclick = function () {
     count: count.value,
     category: category.value,
   };
-  // add new product (object) to prosucts list depended on count number
-  if( newProduct.count >1){
-    for (let i = 0; i < newProduct.count; i++){
+  if (mode === "create") {
+    // add new product (object) to product list depended on count number
+    if (newProduct.count > 1) {
+      for (let i = 0; i < newProduct.count; i++) { // add multip at once
         products.push(newProduct);
-        console.log(`create product ${i}`);
+      }
+    } else {
+      products.push(newProduct); // create only one product
     }
-  }else{
-    products.push(newProduct);
-    console.log(`create only one product `);
   }
-//   if(newProduct.count === 1){
-//     console.log('hi');
-//   }
+  else{
+    // here will update an exisiting product
+    products[tmp] = newProduct;
+  }
 
   // add & update producs in localStorage
   localStorage.setItem("products", JSON.stringify(products));
@@ -65,7 +66,6 @@ submit.onclick = function () {
   clearInputFields();
   showData();
 };
-
 
 // fn to erase character from input field for make them ready to write
 function clearInputFields() {
@@ -80,12 +80,12 @@ function clearInputFields() {
 }
 // fn to read all products one by one and add product as a row in table
 function showData() {
-  if (products.length > 0){
-    btnDeleteAll.style.display = 'block';
-  }else {
-    btnDeleteAll.style.display = 'none';
+  if (products.length > 0) {
+    btnDeleteAll.style.display = "block";
+  } else {
+    btnDeleteAll.style.display = "none";
   }
-  let rows = '';
+  let rows = "";
   for (let i = 0; i < products.length; i++) {
     rows += `
         <tr>
@@ -97,29 +97,43 @@ function showData() {
             <td>${products[i].discount}</td>
             <td>${products[i].total}</td>
             <td>${products[i].category}</td>
-            <td><button id="update">update</button></td>
+            <td><button onclick  = "update( ${i} )" id="update">update</button></td>
             <td><button onclick = "deleteProduct( ${i} )" id="delett">delete</button></td>
         </tr>`;
   }
-  document.getElementById('tbody').innerHTML = rows;
+  document.getElementById("tbody").innerHTML = rows;
 }
 // call here for disply data all time.. not just when create new product
-showData()
-
+showData();
 
 // delete a specified product when click on delete button of a product row
-function deleteProduct(index){
-
-    products.splice(index,1);   // 1- delete product from products list depended on its index
-    localStorage.products = JSON.stringify(products);  // 2- update the localStotage after deleteed
-    showData();  // 3- update disply  data
+function deleteProduct(index) {
+  products.splice(index, 1); // 1- delete product from products list depended on its index
+  localStorage.products = JSON.stringify(products); // 2- update the localStotage after deleteed
+  showData(); // 3- update disply  data
 }
-
 
 // delete all products when click on delete all button
-function deleteAll(){
-    products.splice(0); // delete from start to end
-    localStorage.clear(); 
-    showData();
+function deleteAll() {
+  products.splice(0); // delete from start to end
+  localStorage.clear();
+  showData();
 }
 
+// update sepecific product
+function update(index) {
+  currntProduct = products[index];
+  // console.log(currntProduct);
+  title.value = currntProduct.title;
+  price.value = currntProduct.price;
+  taxes.value = currntProduct.taxes;
+  ads.value = currntProduct.ads;
+  discount.value = currntProduct.discount;
+  total.innerHTML = currntProduct.total;
+  // count.value = currntProduct.count;
+  count.style.display = "none";
+  category.value = currntProduct.category;
+  submit.innerHTML = "Update";
+  mode = "update";
+  tmp = index; // to pass index of product for submit.onclick
+}
