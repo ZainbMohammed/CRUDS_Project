@@ -8,6 +8,7 @@ body{
     background: #222;
     color: #fff;
     font-family: system-ui;
+    font-size: 20px;
 }
 .crud{
     width: 80%;
@@ -53,12 +54,12 @@ button{
     cursor: pointer;
     border-radius: 20px;
     color: white;
-    background: purple;
+    background: rgb(110, 60, 178);
     transition: 0.5s;
     margin: 4px 0;
 }
 button:hover{
-    background: rgba(128, 0, 128, 0.459);
+    background:rgb(89, 40, 138);
     letter-spacing: 1px;
 }
 /* #submit{
@@ -78,7 +79,6 @@ button:hover{
 table{
     width: 100%;
     text-align: center;
-    margin: 10px 0;
 }
 th{
     text-transform: uppercase;
