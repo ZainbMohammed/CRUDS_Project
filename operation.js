@@ -9,8 +9,9 @@ let count = document.getElementById("count");
 let category = document.getElementById("category");
 let submit = document.getElementById("submit");
 let btnDeleteAll = document.getElementById("deleteAll");
+let search = document.getElementById("search");
 let mode = "create";
-let tmp ;
+let tmp;
 
 // func to get total price.. it work when write on price partion
 function getTotal() {
@@ -36,28 +37,31 @@ if (localStorage.products != null) {
 // fn to collect info about the product and add it to products list
 submit.onclick = function () {
   let newProduct = {
-    title: title.value,
+    title: title.value.toLowerCase(),
     price: price.value,
     taxes: taxes.value,
     ads: ads.value,
     discount: discount.value,
     total: total.innerHTML, // it not input field
     count: count.value,
-    category: category.value,
+    category: category.value.toLowerCase(),
   };
   if (mode === "create") {
     // add new product (object) to product list depended on count number
     if (newProduct.count > 1) {
-      for (let i = 0; i < newProduct.count; i++) { // add multip at once
+      for (let i = 0; i < newProduct.count; i++) {
+        // add multip at once
         products.push(newProduct);
       }
     } else {
       products.push(newProduct); // create only one product
     }
-  }
-  else{
+  } else {
     // here will update an exisiting product
     products[tmp] = newProduct;
+    mode = "create";
+    submit.innerHTML = "Create";
+    count.style.display = "block";
   }
 
   // add & update producs in localStorage
@@ -136,4 +140,67 @@ function update(index) {
   submit.innerHTML = "Update";
   mode = "update";
   tmp = index; // to pass index of product for submit.onclick
+  scroll({
+    top: 0,
+    behavior: "smooth",
+  });
+}
+
+// determin which mode will be used to search when click on search by title || category
+let searchMode = "title";
+function determineMode(id) {
+  if (id === "searchTite") {
+    searchMode = "title";
+    search.placeholder = "Searche By Title";
+  } else {
+    searchMode = "category";
+    search.placeholder = "Searche By Category";
+  }
+  search.focus();
+  search.value = '';
+  showData();
+}
+
+// search data dependent  on the character writting in search input
+function searchFN(value) {
+  let rows = "";
+  if (searchMode === "title") {
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].title.includes(value.toLowerCase())) {
+        rows += `
+          <tr>
+              <td>${i}</td>
+              <td>${products[i].title}</td>
+              <td>${products[i].price}</td>
+              <td>${products[i].taxes}</td>
+              <td>${products[i].ads}</td>
+              <td>${products[i].discount}</td>
+              <td>${products[i].total}</td>
+              <td>${products[i].category}</td>
+              <td><button onclick  = "update( ${i} )" id="update">update</button></td>
+              <td><button onclick = "deleteProduct( ${i} )" id="delett">delete</button></td>
+          </tr>`;
+      }
+    }
+  }
+  else{
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].category.includes(value.toLowerCase())) {
+        rows += `
+          <tr>
+              <td>${i}</td>
+              <td>${products[i].title}</td>
+              <td>${products[i].price}</td>
+              <td>${products[i].taxes}</td>
+              <td>${products[i].ads}</td>
+              <td>${products[i].discount}</td>
+              <td>${products[i].total}</td>
+              <td>${products[i].category}</td>
+              <td><button onclick  = "update( ${i} )" id="update">update</button></td>
+              <td><button onclick = "deleteProduct( ${i} )" id="delett">delete</button></td>
+          </tr>`;
+      }
+    }
+  }
+  document.getElementById("tbody").innerHTML = rows;
 }

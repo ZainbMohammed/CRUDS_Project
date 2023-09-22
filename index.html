@@ -27,10 +27,10 @@
         </div>
         <div class="outputs">
             <div class="searchBlock">
-                <input type="text" id="search" placeholder="search">
+                <input onkeyup="searchFN(this.value)" type="text" id="search" placeholder="search">
                 <div class="btnSearch">
-                    <button id ="searchTite">Search By Title</button>
-                    <button id ="searchCategory">Search By Category</button>
+                    <button onclick="determineMode(this.id)" id ="searchTite">Search By Title</button>
+                    <button onclick="determineMode(this.id)" id ="searchCategory">Search By Category</button>
                 </div>
             </div>
             <!-- this button will be hide and disply it by js -->
