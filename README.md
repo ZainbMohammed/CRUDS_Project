@@ -6,3 +6,7 @@ Peform Cruds operation in products
 Products display in same page 
 
 ![products info](crud2.png)
+
+How it look!!
+
+![products info](cruds.mp4)
