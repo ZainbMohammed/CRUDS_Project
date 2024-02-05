@@ -12,7 +12,7 @@ let btnDeleteAll = document.getElementById("deleteAll");
 let search = document.getElementById("search");
 let mode = "create";
 let tmp;
-
+console.log("hello"+20+30);
 // func to get total price.. it work when write on price partion
 function getTotal() {
   // console.log("writting");
