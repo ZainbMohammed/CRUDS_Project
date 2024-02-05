@@ -9,4 +9,5 @@ Products display in same page
 
 How it look!!
 
-![products info](https://github.com/ZainbMohammed/CRUDS_Project/assets/129354366/90912f23-4476-4eb1-9570-33e36efb064b)
+https://github.com/ZainbMohammed/CRUDS_Project/assets/129354366/2feccac7-ff0f-4892-a774-271816fa2bcb
+
