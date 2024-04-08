@@ -9,7 +9,7 @@
 
 ![products info](crud2.png)
 
-## How it look!!
+### How it look!!
 
 https://github.com/ZainbMohammed/CRUDS_Project/assets/129354366/2feccac7-ff0f-4892-a774-271816fa2bcb
 
