@@ -2,6 +2,7 @@
 - Peform Cruds operation in products.
 - add - update - delete - search products.
 - search based on product title & product category.
+- calculate total of product price.
 - using HTML - CSS- JS.
 
 
