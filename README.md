@@ -1,8 +1,8 @@
 # CRUDS
-- Peform Cruds operation in products
-- add - update - delete - search products
-- search based on product title & product category
-- using HTML - CSS- JS
+- Peform Cruds operation in products.
+- add - update - delete - search products.
+- search based on product title & product category.
+- using HTML - CSS- JS.
 
 
 ![input fields](cruds.png)
